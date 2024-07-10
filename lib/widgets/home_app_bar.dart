@@ -5,7 +5,7 @@ import 'package:sdm_mobile/blocs/change_password_bloc.dart';
 import 'package:sdm_mobile/models/change_password.dart';
 import 'package:sdm_mobile/networking/response.dart';
 import 'package:sdm_mobile/utils/constants.dart';
-import 'package:sdm_mobile/view/home_view.dart';
+import 'package:sdm_mobile/view/home_view1.dart';
 import 'package:sdm_mobile/view/login_view.dart';
 import 'package:sdm_mobile/widgets/app_button.dart';
 import 'package:sdm_mobile/widgets/frotest_glass_box_message.dart';
@@ -295,16 +295,7 @@ class _CommonAppBarState extends State<CommonAppBarHome> {
         backgroundColor: const Color.fromARGB(101, 32, 188, 165),
         title: Text(widget.title),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.home),
-            onPressed: () {
-              WidgetsBinding.instance.addPostFrameCallback((_) => Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const HomePage()),
-                (Route<dynamic> route) => false,
-              ));
-            },
-          ),
+         
           PopupMenuButton<String>(
             onSelected: (String result) {
               if (result == 'logout') {

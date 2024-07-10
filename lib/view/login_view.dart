@@ -51,7 +51,6 @@ class _LoginPageState extends State<LoginPage> {
       usernameController.text = prefs.getString('username') ?? '';
       passwordController.text = prefs.getString('password') ?? '';
       _saveCredentials = prefs.getBool('saveCredentials') ?? false;
-      
     });
   }
 
@@ -73,7 +72,6 @@ class _LoginPageState extends State<LoginPage> {
   Future<String?> _getId() async {
     var deviceInfo = DeviceInfoPlugin();
     if (Platform.isIOS) {
-      // import 'dart:io'
       var iosDeviceInfo = await deviceInfo.iosInfo;
       return iosDeviceInfo.identifierForVendor; // unique ID on iOS
     } else if (Platform.isAndroid) {
@@ -109,9 +107,8 @@ class _LoginPageState extends State<LoginPage> {
             child: FrostedGlassBox(
               width: contWidth,
               height: contWidth * 1.4,
-              border: Border.all(
-                          color: Colors.white.withOpacity(0.2),
-                          width : 1.0),
+              border:
+                  Border.all(color: Colors.white.withOpacity(0.2), width: 1.0),
               child: Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -137,9 +134,9 @@ class _LoginPageState extends State<LoginPage> {
                                   inputType: 'none',
                                   isRequired: true,
                                   fillColor:
-                                     const Color.fromARGB(50, 255, 255, 255),
+                                      const Color.fromARGB(50, 255, 255, 255),
                                   filled: true,
-                                  labelText: "UserName",
+                                  labelText: "Username",
                                   onChangedFunction: () {},
                                 ),
                                 const SizedBox(height: 20.0),
@@ -154,8 +151,7 @@ class _LoginPageState extends State<LoginPage> {
                                   filled: true,
                                   labelText: "Password",
                                   suffixIcon: getPasswordSuffixIcon(
-                                      _togglePasswordVisibility,
-                                      _showPassword),
+                                      _togglePasswordVisibility, _showPassword),
                                   onChangedFunction: () {},
                                 ),
                                 const SizedBox(height: 10.0),
@@ -169,22 +165,31 @@ class _LoginPageState extends State<LoginPage> {
                                         });
                                       },
                                       side: WidgetStateBorderSide.resolveWith(
-                                                  (states) => const BorderSide(
-                                                    color: Color.fromARGB(255, 255, 255, 255), // Border color
-                                                    width: 1.0, // Border width
-                                                  ),
-                                                ),
-                                                fillColor: WidgetStateProperty.resolveWith<Color?>(
-                                                (Set<WidgetState> states) {
-                                                  if (states.contains(WidgetState.selected)) {
-                                                    return Colors.transparent; // Transparent fill color when selected
-                                                  }
-                                                  return Colors.transparent; // Transparent fill color when not selected
-                                                },
-                                              ),
-                                              checkColor: const Color.fromARGB(255, 4, 173, 179), // Color of the check mark
+                                        (states) => const BorderSide(
+                                          color: Color.fromARGB(255, 255, 255,
+                                              255), // Border color
+                                          width: 1.0, // Border width
+                                        ),
+                                      ),
+                                      fillColor: WidgetStateProperty
+                                          .resolveWith<Color?>(
+                                        (Set<WidgetState> states) {
+                                          if (states
+                                              .contains(WidgetState.selected)) {
+                                            return Colors
+                                                .transparent; // Transparent fill color when selected
+                                          }
+                                          return Colors
+                                              .transparent; // Transparent fill color when not selected
+                                        },
+                                      ),
+                                      checkColor: const Color.fromARGB(255, 4,
+                                          173, 179), // Color of the check mark
                                     ),
-                                    const Text("Save Credentials", style: TextStyle(color: Colors.white),),
+                                    const Text(
+                                      "Save Credentials",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                   ],
                                 ),
                               ],
@@ -193,8 +198,7 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 70.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 70.0),
                         child: loginButton(context),
                       ),
                       loginResponse(),
@@ -207,51 +211,52 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-Widget logo(BuildContext context) {
-  Size size = MediaQuery.of(context).size;
-  double contWidth = size.width * 0.2;
+  Widget logo(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    double contWidth = size.width * 0.2;
 
-  return Column(
-    children: [
-      SizedBox(
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: const Color.fromARGB(0, 255, 255, 255), // Border color
-              width: 0.5, // Border width
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.5), // Shadow color
-                spreadRadius: 20, // Spread radius
-                blurRadius: 20, // Blur radius
-                offset: const Offset(0, 0), // Offset of the shadow
+    return Column(
+      children: [
+        SizedBox(
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: const Color.fromARGB(0, 255, 255, 255), // Border color
+                width: 0.5, // Border width
               ),
-            ],
-            borderRadius: BorderRadius.circular(15.0), // Border radius (if needed)
-          ),
-          child: FrostedGlassBox(
-            height: contWidth,
-            width: contWidth,
-            border: Border.all(
-                          color: Colors.white.withOpacity(0.0),
-                          width : 1.0),
-            child: Opacity(
-              opacity: 0.9,
-              child: Image.asset('images/logo.png'),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color.fromARGB(255, 255, 255, 255)
+                      .withOpacity(0.5), // Shadow color
+                  spreadRadius: 20, // Spread radius
+                  blurRadius: 20, // Blur radius
+                  offset: const Offset(0, 0), // Offset of the shadow
+                ),
+              ],
+              borderRadius:
+                  BorderRadius.circular(15.0), // Border radius (if needed)
+            ),
+            child: FrostedGlassBox(
+              height: contWidth,
+              width: contWidth,
+              border:
+                  Border.all(color: Colors.white.withOpacity(0.0), width: 1.0),
+              child: Opacity(
+                opacity: 0.9,
+                child: Image.asset('images/logo.png'),
+              ),
             ),
           ),
         ),
-      ),
-    ],
-  );
-}
+      ],
+    );
+  }
 
 //This is for pop up message
   Widget deviceInfoButton(BuildContext context, String deviceId) {
     return PopupMenuButton<String>(
       icon: const Icon(Icons.info_outline_rounded,
-          color:  Color.fromARGB(255, 18, 175, 167) ),
+          color: Color.fromARGB(255, 18, 175, 167)),
       itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
         PopupMenuItem<String>(
           value: 'Device ID',
@@ -283,86 +288,87 @@ Widget logo(BuildContext context) {
       buttonText: "Login",
       onPressed: () async {
         setState(() {
-        _dialogShown = false; // Reset _dialogShown state for each login attempt
-      });
+          _dialogShown =
+              false; // Reset _dialogShown state for each login attempt
+        });
 
         String? deviceId = await _getId();
         print("THIS IS DEVICE ID:  $deviceId");
-        
-          _loginBloc.login(usernameController.text.toString(),
-              passwordController.text.toString(), deviceId.toString());
-          if (_saveCredentials) {
-            _saveCredentialsToPrefs();
-          } else {
-            _clearCredentials();
-          }
+
+        _loginBloc.login(usernameController.text.toString(),
+            passwordController.text.toString(), deviceId.toString());
+        if (_saveCredentials) {
+          _saveCredentialsToPrefs();
+        } else {
+          _clearCredentials();
+        }
       },
     );
   }
-  Future<void> _handleCompletedLogin(BuildContext context, loggingId) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.setString('logging_id', loggingId);
 
-  Navigator.pushAndRemoveUntil(
-    context,
-    MaterialPageRoute(builder: (context) => const HomePage()),
-    (Route<dynamic> route) => false,
-  );
-}
-  
-  Widget loginResponse(){
+  Future<void> _handleCompletedLogin(BuildContext context, loggingId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('logging_id', loggingId);
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const HomePage()),
+      (Route<dynamic> route) => false,
+    );
+  }
+
+  Widget loginResponse() {
     return StreamBuilder<Response<Login>>(
       stream: _loginBloc.loginStream,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           switch (snapshot.data!.status!) {
             case Status.LOADING:
-             return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Loading(loadingMessage: snapshot.data!.message.toString()),
-                    ],
-                  ),
-                );
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Loading(loadingMessage: snapshot.data!.message.toString()),
+                  ],
+                ),
+              );
             case Status.COMPLETED:
-            if(!_dialogShown){
-              _dialogShown = true;
-              if (snapshot.data!.data!.ylogver == true){
-                WidgetsBinding.instance
-                    .addPostFrameCallback((_) {
-                      _handleCompletedLogin(context, snapshot.data!.data!.id);
-                       Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomePage()),
-                          (Route<dynamic> route) => false,
-                     );
-                    }
-                  );
-              } else {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  print(snapshot.data!.data!.yerrmsg);
-                  showErrorAlertDialog(context, snapshot.data!.data!.yerrmsg ?? 'Unknown error'
-                  ).then((_) {
-                    setState(() {
-                      _dialogShown = false; // Reset dialog shown state
-                      usernameController.clear();
-                      passwordController.clear();
+              if (!_dialogShown) {
+                _dialogShown = true;
+                if (snapshot.data!.data!.ylogver == true) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    _handleCompletedLogin(context, snapshot.data!.data!.id);
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => const HomePage()),
+                      (Route<dynamic> route) => false,
+                    );
+                  });
+                } else {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    print(snapshot.data!.data!.yerrmsg);
+                    showErrorAlertDialog(context,
+                            snapshot.data!.data!.yerrmsg ?? 'Unknown error')
+                        .then((_) {
+                      setState(() {
+                        _dialogShown = false; // Reset dialog shown state
+                        usernameController.clear();
+                        passwordController.clear();
+                      });
                     });
                   });
-                });
+                }
               }
-          }
               break;
             case Status.ERROR:
-            if (!_dialogShown) {
-              _dialogShown = true;
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                showErrorAlertDialog(
-                    context, snapshot.data!.message ?? 'Unknown error').then((_) {
-                  setState(() {
-                    _dialogShown = false; // Reset dialog shown state
+              if (!_dialogShown) {
+                _dialogShown = true;
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  showErrorAlertDialog(
+                          context, snapshot.data!.message ?? 'Unknown error')
+                      .then((_) {
+                    setState(() {
+                      _dialogShown = false; // Reset dialog shown state
                     });
                   });
                 });

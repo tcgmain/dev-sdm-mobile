@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:sdm_mobile/view/home_view.dart';
+import 'package:sdm_mobile/view/home_view1.dart';
 import 'package:sdm_mobile/view/login_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -41,12 +41,12 @@ class _CommonAppBarState extends State<CommonAppBar> {
   @override
   Widget build(BuildContext context) {
         return ClipRRect(
-          borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(10.0), // Adjust the radius for bottom-left corner
-            bottomRight: Radius.circular(10.0),  // Adjust the radius for bottom-right corner
-          ),
+          // borderRadius: const BorderRadius.only(
+          //   //bottomLeft: Radius.circular(10.0), // Adjust the radius for bottom-left corner
+          //   //bottomRight: Radius.circular(10.0),  // Adjust the radius for bottom-right corner
+          // ),
           child: AppBar(
-            toolbarHeight: 80.0,
+            toolbarHeight: 50.0,
             foregroundColor: const  Color.fromARGB(255, 6, 235, 243).withOpacity(1),
             backgroundColor: const Color.fromARGB(101, 32, 188, 165),
             title: Text(widget.title),
@@ -60,7 +60,7 @@ class _CommonAppBarState extends State<CommonAppBar> {
                 onPressed: () {
                   WidgetsBinding.instance.addPostFrameCallback((_) => Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => const HomePage()),
+                        MaterialPageRoute(builder: (context) => const HomePage1()),
                         (Route<dynamic> route) => false,
                       ));
                 },

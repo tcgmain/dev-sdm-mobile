@@ -124,7 +124,7 @@ class _OrganizationPageState extends State<OrganizationPage> {
                                               Navigator.push(
                                                           context,
                                                           MaterialPageRoute(
-                                                            builder: (context) =>  OraganizationHomePage(
+                                                            builder: (context) =>  OraganizationHomePage1(
                                                               routeName : routeNew.toString(),
                                                               routeNumber : routeNumberNew.toString(),
                                                               organizationNummer: organization.orgnummer.toString(),

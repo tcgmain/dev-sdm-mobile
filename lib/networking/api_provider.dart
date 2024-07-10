@@ -14,11 +14,11 @@ class ApiProvider {
   Future<dynamic> post(String url, inputBody, requestHeaders) async {
     var responseJson;
     try {
-      //print(baseUrl+url);
+      print(baseUrl+url);
       final response = await http.post(Uri.parse(baseUrl + url), headers: requestHeaders, body: inputBody);
       String responseString = response.body.toString();
       //responseString = convertToJson(responseString
-      //print(responseString);
+    print(responseString);
       responseJson = _response(jsonDecode(responseString), response.statusCode);
       //print(responseJson.toString());
     } on SocketException {

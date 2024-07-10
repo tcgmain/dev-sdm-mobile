@@ -76,40 +76,37 @@ class _StockupdatePageState extends State<StockupdatePage> {
       print("Initialization Error: $e");
     }
   }
-  Future<void> _selectDate(BuildContext context) async {
-  final DateTime? picked = await showDialog<DateTime>(
-    context: context,
-    builder: (BuildContext context) {
-      return CustomDatePickerDialog(
-        selectedDate: _selectedDate,
-        onDateSelected: (DateTime date) {
-          Navigator.of(context).pop(date);
-        },
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2100),
-        color1: [
-          const Color.fromARGB(131, 255, 255, 255).withOpacity(0.4),
-          const Color.fromARGB(90, 228, 168, 5).withOpacity(0.4),
-        ],
-      );
-    },
-  );
-  if (picked != null && picked != _selectedDate) {
-    setState(() {
-      _selectedDate = picked;
-    });
-  }
-}
 
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDialog<DateTime>(
+      context: context,
+      builder: (BuildContext context) {
+        return CustomDatePickerDialog(
+          selectedDate: _selectedDate,
+          onDateSelected: (DateTime date) {
+            Navigator.of(context).pop(date);
+          },
+          firstDate: DateTime(2000),
+          lastDate: DateTime(2100),
+          color1: [
+            const Color.fromARGB(131, 255, 255, 255).withOpacity(0.4),
+            const Color.fromARGB(90, 228, 168, 5).withOpacity(0.4),
+          ],
+        );
+      },
+    );
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+      });
+    }
+  }
 
   Future<void> getProduct() async {
     try {
-      ProductData productData =
-          await _updateStockRepo.getProduct(userName, organizationNummer3);
+      ProductData productData = await _updateStockRepo.getProduct(userName, organizationNummer3);
       setState(() {
-        productItems = productData.table
-            .map((e) => ProductItem(headerValue: e.yproddesc))
-            .toList();
+        productItems = productData.table.map((e) => ProductItem(headerValue: e.yproddesc)).toList();
         //product.insert(0, "Select Organization");
         isDataLoaded = true;
       });
@@ -117,6 +114,7 @@ class _StockupdatePageState extends State<StockupdatePage> {
       print("Product Load ERROR: $e");
     }
   }
+
   Widget organizationID() {
     return StreamBuilder<ResponseList<GetGoodManagementID>>(
       stream: _getGoodMangIdBloc.getGoodManagementIdStream,
@@ -127,20 +125,20 @@ class _StockupdatePageState extends State<StockupdatePage> {
               print("loading");
 
             case Status.COMPLETED:
-                var dataList = snapshot.data!.data!;
-                if (dataList.isNotEmpty) {
-                  var firstItem = dataList[0];
-                  organizationId = firstItem.id.toString();
-                  // You can display or use the ID as needed
-                  print("*************************************$organizationId");
-                } else {
-                  print('No data available');
-                }
+              var dataList = snapshot.data!.data!;
+              if (dataList.isNotEmpty) {
+                var firstItem = dataList[0];
+                organizationId = firstItem.id.toString();
+                // You can display or use the ID as needed
+                print("*************************************$organizationId");
+              } else {
+                print('No data available');
+              }
             case Status.ERROR:
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  showErrorAlertDialog(context, snapshot.data!.message.toString());
-                });
-                return Container(); // Ensure you return a container or relevant widget here
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                showErrorAlertDialog(context, snapshot.data!.message.toString());
+              });
+              return Container(); // Ensure you return a container or relevant widget here
           }
         }
         return Container();
@@ -148,97 +146,101 @@ class _StockupdatePageState extends State<StockupdatePage> {
     );
   }
 
-
   Future<void> stockUpdateDialog(String productName, DateTime date, String? pronummer) async {
     Size size = MediaQuery.of(context).size;
     double contWidth = size.width * 0.90;
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return Dialog(
-        backgroundColor: Colors.transparent,
-        elevation: 0, // This sets the dialog to be transparent
-        child: FrostedGlassBoxForMessages(
-          width: contWidth,
-          height: contWidth ,
-          // color: Color.fromARGB(84, 230, 189, 8),
-          // borderRadius: BorderRadius.circular(10),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                "Enter Stock for $productName",
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: TextField(
-                    controller: stockController,
-                    style: const TextStyle(color: Colors.white),
-                    cursorColor: const Color.fromARGB(255, 255, 255, 255), // Set the cursor color here
-                    decoration: const InputDecoration(
-                      labelText: 'Stock Update',
-                      labelStyle: TextStyle(
-                        color: Color.fromARGB(255, 255, 255, 255), // Change this to your desired color
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 255, 255)), // Set the line color when the field is not focused
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Color.fromARGB(255, 209, 162, 9)), // Set the line color when the field is focused
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+            backgroundColor: Colors.transparent,
+            elevation: 0, // This sets the dialog to be transparent
+            child: FrostedGlassBoxForMessages(
+              width: contWidth,
+              height: contWidth,
+              // color: Color.fromARGB(84, 230, 189, 8),
+              // borderRadius: BorderRadius.circular(10),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      "Enter Stock for $productName",
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
                     ),
-                    onChanged: (value) {
-                      print("Stock Update Value: $value");
-                    },
                   ),
-                ),
-            const SizedBox(height: 20),
-            ButtonBar(
-              alignment: MainAxisAlignment.center,
-              children: [
-                CommonAppButton(
-                  buttonText: "Submit",
-                  onPressed: () {
-                    String inputValue = stockController.text;
-                    if (inputValue.isEmpty) {
-                      _showErrorDialog(context);
-                    } else {
-                      _goodsUpdateBloc.goodsUpdate(organizationId, date, pronummer!, inputValue, userName);
-                      // _successDialog(context);
-                    }
-                    Navigator.of(context).pop();
-                  },
-                ),
-                const SizedBox(width: 10,),
-                 CommonAppButton(
-                  buttonText: "Cancel",
-                  onPressed: () => {
-                    stockController.clear(),
-                    Navigator.of(context).pop(),
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
-                )
-      );
-    },
-  );
-}
-    void _getRoutesForSelectedDate() {
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: TextField(
+                      controller: stockController,
+                      style: const TextStyle(color: Colors.white),
+                      cursorColor: const Color.fromARGB(255, 255, 255, 255), // Set the cursor color here
+                      decoration: const InputDecoration(
+                        labelText: 'Stock Update',
+                        labelStyle: TextStyle(
+                          color: Color.fromARGB(255, 255, 255, 255), // Change this to your desired color
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(
+                                  255, 255, 255, 255)), // Set the line color when the field is not focused
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 209, 162, 9)), // Set the line color when the field is focused
+                        ),
+                      ),
+                      onChanged: (value) {
+                        print("Stock Update Value: $value");
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  ButtonBar(
+                    alignment: MainAxisAlignment.center,
+                    children: [
+                      CommonAppButton(
+                        buttonText: "Submit",
+                        onPressed: () {
+                          String inputValue = stockController.text;
+                          if (inputValue.isEmpty) {
+                            _showErrorDialog(context);
+                          } else {
+                            _goodsUpdateBloc.goodsUpdate(organizationId, date, pronummer!, inputValue, userName);
+                            // _successDialog(context);
+                          }
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      CommonAppButton(
+                        buttonText: "Cancel",
+                        onPressed: () => {
+                          stockController.clear(),
+                          Navigator.of(context).pop(),
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ));
+      },
+    );
+  }
+
+  void _getRoutesForSelectedDate() {
     // Format the date to a string if necessary
     _updateStockBloc.product(userName, organizationNummer3);
   }
-  
+
   @override
   void dispose() {
     super.dispose();
@@ -251,7 +253,7 @@ class _StockupdatePageState extends State<StockupdatePage> {
 
     return SafeArea(
       child: Scaffold(
-         floatingActionButton: FloatingActionButton(
+        floatingActionButton: FloatingActionButton(
           onPressed: () {
             _getRoutesForSelectedDate();
           },
@@ -274,18 +276,16 @@ class _StockupdatePageState extends State<StockupdatePage> {
               right: 0,
               child: CommonAppBar(
                 title: 'Update Stock',
-                 onBackButtonPressed: () {
-                  WidgetsBinding.instance
-                      .addPostFrameCallback((_) => Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>MarkVisitHome(
-                                      organizationNummer :organizationNummer3,
-                                      organizationName : organizationName3,
-
-                                    )),
-                            (Route<dynamic> route) => false,
-                          ));
+                onBackButtonPressed: () {
+                  WidgetsBinding.instance.addPostFrameCallback((_) => Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MarkVisitHome(
+                                  organizationNummer: organizationNummer3,
+                                  organizationName: organizationName3,
+                                )),
+                        (Route<dynamic> route) => false,
+                      ));
                 },
                 userName: '',
               ),
@@ -296,12 +296,9 @@ class _StockupdatePageState extends State<StockupdatePage> {
                 child: FrostedGlassBox(
                   width: contWidth,
                   height: contWidth * 1.65,
-                  border: Border.all(
-                          color: Colors.white.withOpacity(0.2),
-                          width : 1.0),
+                  border: Border.all(color: Colors.white.withOpacity(0.2), width: 1.0),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                     child: Column(
                       children: [
                         Padding(
@@ -309,19 +306,14 @@ class _StockupdatePageState extends State<StockupdatePage> {
                           child: Column(
                             children: [
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       'Date: ${DateFormat('dd/MM/yyyy').format(_selectedDate)}',
                                       style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                      ),
+                                          fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
                                     ),
                                     CommonAppButton(
                                       buttonText: 'Select Date',
@@ -330,120 +322,126 @@ class _StockupdatePageState extends State<StockupdatePage> {
                                   ],
                                 ),
                               ),
-
                               SizedBox(
-                                  height: 500,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                                    child: StreamBuilder<Response<ProductData>>(
-                                      stream: _updateStockBloc.updateStockStream,
-                                      builder: (context, snapshot) {
-                                        if (snapshot.hasData) {
-                                          switch (snapshot.data!.status!) {
-                                            case Status.LOADING:
-                                              return Loading(
-                                                loadingMessage: snapshot.data!.message.toString(),
-                                              );
-                                            case Status.COMPLETED:
-                                              var filteredProducts = snapshot
-                                                  .data!.data!.table
-                                                  .where((product) => product.yproddesc.toLowerCase().contains(_searchQuery.toLowerCase()))
-                                                  .toList();
-                                              filteredProducts.sort((a, b) => a.yproddesc.compareTo(b.yproddesc));
-                                              var productItems = filteredProducts.map((e) {
-                                                    productDescription = e.yproddesc;
-                                                    productNummer = e.yprodnummer;
-                                                    return ProductItem(headerValue: e.yproddesc);
-                                              }).toList();
-                                              return Column(
-                                                children: [
-                                                     const SizedBox(height: 10),
-                                                       SearchTextField(
-                                                            controller: _searchController,
-                                                            onChanged: (value) {
-                                                              setState(() {
-                                                                _searchQuery = value!.toLowerCase();
-                                                              });
-                                                            },
-                                                            labelText: '    Search Product',
-                                                          ),
-                                                        const SizedBox(height: 10,),
-                                                        Expanded(
-                                                          child: ListView.builder(
-                                                            itemCount: productItems.length,
-                                                            itemBuilder: (context, index) {
-                                                              var item = productItems[index];
-                                                              if (_searchQuery.isNotEmpty && !item.headerValue.toLowerCase().contains(_searchQuery)) {
-                                                                return const SizedBox.shrink();
-                                                              }
+                                height: 500,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                  child: StreamBuilder<Response<ProductData>>(
+                                    stream: _updateStockBloc.updateStockStream,
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        switch (snapshot.data!.status!) {
+                                          case Status.LOADING:
+                                            return Loading(
+                                              loadingMessage: snapshot.data!.message.toString(),
+                                            );
+                                          case Status.COMPLETED:
+                                            var filteredProducts = snapshot.data!.data!.table
+                                                .where((product) => product.yproddesc
+                                                    .toLowerCase()
+                                                    .contains(_searchQuery.toLowerCase()))
+                                                .toList();
+                                            filteredProducts.sort((a, b) => a.yproddesc.compareTo(b.yproddesc));
+                                            var productItems = filteredProducts.map((e) {
+                                              productDescription = e.yproddesc;
+                                              productNummer = e.yprodnummer;
+                                              return ProductItem(headerValue: e.yproddesc);
+                                            }).toList();
+                                            return Column(
+                                              children: [
+                                                const SizedBox(height: 10),
+                                                SearchTextField(
+                                                  controller: _searchController,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      _searchQuery = value!.toLowerCase();
+                                                    });
+                                                  },
+                                                  labelText: '    Search Product',
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Expanded(
+                                                  child: ListView.builder(
+                                                    itemCount: productItems.length,
+                                                    itemBuilder: (context, index) {
+                                                      var item = productItems[index];
+                                                      if (_searchQuery.isNotEmpty &&
+                                                          !item.headerValue.toLowerCase().contains(_searchQuery)) {
+                                                        return const SizedBox.shrink();
+                                                      }
 
-                                                              return Padding(
-                                                                padding: const EdgeInsets.symmetric(vertical: 5.0),
-                                                                child: Container(
-                                                                      decoration: BoxDecoration(
-                                                                        boxShadow: [
-                                                                          BoxShadow(
-                                                                            color: const Color.fromARGB(255, 243, 180, 6).withOpacity(0.13),
-                                                                            blurRadius: 5,
-                                                                            offset: const Offset(0, 0),
-                                                                          ),
-                                                                        ],
-                                                                        borderRadius: BorderRadius.circular(10),
-                                                                      ),
-                                                                child: ElevatedButton(
-                                                                  style: ElevatedButton.styleFrom(
-                                                                    foregroundColor: Colors.transparent,
-                                                                    backgroundColor: Colors.transparent,
-                                                                    shape: RoundedRectangleBorder(
-                                                                      borderRadius: BorderRadius.circular(10),
-                                                                    ),
-                                                                    side: BorderSide(
-                                                                      color: Colors.white.withOpacity(0.6),
-                                                                      width: 1,
-                                                                    ),
-                                                                    elevation: 10,
-                                                                    shadowColor: Colors.transparent,
-                                                                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                                                                  ),
-                                                                  onPressed: () {
-                                                                    stockUpdateDialog(item.headerValue, _selectedDate, productNummer);
-                                                                    // print("*********************************$organizationNummer3");
-                                                                  },
-                                                                  child: Text(
-                                                                    item.headerValue.toString(),
-                                                                    style: TextStyle(
-                                                                      color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.8),
-                                                                      fontSize: 16.0,
-                                                                    ),
-                                                                    textAlign: TextAlign.center,
-                                                                  ),
-                                                                ),
+                                                      return Padding(
+                                                        padding: const EdgeInsets.symmetric(vertical: 5.0),
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                            boxShadow: [
+                                                              BoxShadow(
+                                                                color: const Color.fromARGB(255, 243, 180, 6)
+                                                                    .withOpacity(0.13),
+                                                                blurRadius: 5,
+                                                                offset: const Offset(0, 0),
                                                               ),
-                                                            );
+                                                            ],
+                                                            borderRadius: BorderRadius.circular(10),
+                                                          ),
+                                                          child: ElevatedButton(
+                                                            style: ElevatedButton.styleFrom(
+                                                              foregroundColor: Colors.transparent,
+                                                              backgroundColor: Colors.transparent,
+                                                              shape: RoundedRectangleBorder(
+                                                                borderRadius: BorderRadius.circular(10),
+                                                              ),
+                                                              side: BorderSide(
+                                                                color: Colors.white.withOpacity(0.6),
+                                                                width: 1,
+                                                              ),
+                                                              elevation: 10,
+                                                              shadowColor: Colors.transparent,
+                                                              padding: const EdgeInsets.symmetric(
+                                                                  horizontal: 20, vertical: 10),
+                                                            ),
+                                                            onPressed: () {
+                                                              stockUpdateDialog(
+                                                                  item.headerValue, _selectedDate, productNummer);
+                                                              // print("*********************************$organizationNummer3");
                                                             },
+                                                            child: Text(
+                                                              item.headerValue.toString(),
+                                                              style: TextStyle(
+                                                                color: const Color.fromARGB(255, 255, 255, 255)
+                                                                    .withOpacity(0.8),
+                                                                fontSize: 16.0,
+                                                              ),
+                                                              textAlign: TextAlign.center,
+                                                            ),
                                                           ),
                                                         ),
-                                                ],
-                                              );
-                                            case Status.ERROR:
-                                              if (snapshot.data!.message.toString() == "404") {
-                                                WidgetsBinding.instance.addPostFrameCallback((_) {
-                                                  showErrorAlertDialog(context, "No Organization For This Employee.");
-                                                });
-                                              } else {
-                                                WidgetsBinding.instance.addPostFrameCallback((_) {
-                                                  showErrorAlertDialog(context, snapshot.data!.message.toString());
-                                                });
-                                              }
-                                              return Container();
-                                          }
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          case Status.ERROR:
+                                            if (snapshot.data!.message.toString() == "404") {
+                                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                                showErrorAlertDialog(context, "No Organization For This Employee.");
+                                              });
+                                            } else {
+                                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                                showErrorAlertDialog(context, snapshot.data!.message.toString());
+                                              });
+                                            }
+                                            return Container();
                                         }
-                                        return Container();
-                                      },
-                                    ),
+                                      }
+                                      return Container();
+                                    },
                                   ),
                                 ),
-
+                              ),
                             ],
                           ),
                         ),
@@ -453,18 +451,17 @@ class _StockupdatePageState extends State<StockupdatePage> {
                 ),
               ),
             ),
-            
             organizationID()
           ],
         ),
       ),
     );
   }
-   void _showErrorDialog(BuildContext context) {
+
+  void _showErrorDialog(BuildContext context) {
     showDialog(
       context: context,
-      barrierDismissible:
-          false, // Prevent users from dismissing the loading dialog
+      barrierDismissible: false, // Prevent users from dismissing the loading dialog
       builder: (BuildContext context) {
         return const Center(
           child: CircularProgressIndicator(
@@ -473,7 +470,7 @@ class _StockupdatePageState extends State<StockupdatePage> {
         );
       },
     );
-  Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 1), () {
       // Close the loading dialog
       Navigator.pop(context);
       showDialog(

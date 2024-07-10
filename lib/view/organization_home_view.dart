@@ -14,7 +14,7 @@ import 'package:sdm_mobile/widgets/home_app_bar.dart';
 import 'package:sdm_mobile/widgets/organization_colors.dart';
 import 'dart:math' as math;
 
-class OraganizationHomePage extends StatefulWidget {
+class OraganizationHomePage1 extends StatefulWidget {
   final String routeName;
   final String routeNumber;
   final String organizationNummer;
@@ -29,7 +29,7 @@ class OraganizationHomePage extends StatefulWidget {
   final String organizationLatitude;
   final String organizationDistance;
   final String organizationName;
-  const OraganizationHomePage({
+  const OraganizationHomePage1({
     Key? key,
     required this.routeName,
     required this.routeNumber,
@@ -49,10 +49,10 @@ class OraganizationHomePage extends StatefulWidget {
 
   @override
   // ignore: library_private_types_in_public_api
-  _OraganizationHomePageState createState() => _OraganizationHomePageState();
+  _OraganizationHomePage1State createState() => _OraganizationHomePage1State();
 }
 
-class _OraganizationHomePageState extends State<OraganizationHomePage> {
+class _OraganizationHomePage1State extends State<OraganizationHomePage1> {
   DateTime _selectedDate = DateTime.now();
   late UpdateVisitBloc _updateVisitBloc;
   String _locationMessage1 = "";
@@ -594,6 +594,7 @@ Future<void> _selectDate(BuildContext context) async {
       )),
     );
   }
+  
   Widget markVisit(BuildContext context) {
     String visit = "VISIT5";
     String date = DateFormat('dd/MM/yyyy').format(_selectedDate);

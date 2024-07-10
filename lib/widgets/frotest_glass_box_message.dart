@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 final borderRadius = BorderRadius.circular(20.0);
@@ -52,7 +51,7 @@ class FrostedGlassBoxForMessages extends StatelessWidget {
                 ) ,
               ),
             ),
-            Center(child: child), 
+            Center(child: child),
           ],
         ),
       ),

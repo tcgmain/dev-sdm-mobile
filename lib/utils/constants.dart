@@ -78,3 +78,8 @@ Future<String> getUserID() async {
   String userID = prefs.getString('userID') ?? 'default_userId';
   return userID;
 }
+
+getColor() {
+  double horizontalTitleGap = 5.0;
+  return horizontalTitleGap;
+}

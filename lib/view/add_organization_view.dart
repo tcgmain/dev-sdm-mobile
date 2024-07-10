@@ -7,7 +7,7 @@ import 'package:sdm_mobile/models/get_distributor.dart';
 import 'package:sdm_mobile/networking/api_provider.dart';
 import 'package:sdm_mobile/networking/response.dart';
 import 'package:sdm_mobile/utils/constants.dart';
-import 'package:sdm_mobile/view/home_view.dart';
+import 'package:sdm_mobile/view/home_view1.dart';
 import 'package:sdm_mobile/widgets/app_button.dart';
 import 'package:sdm_mobile/widgets/appbar.dart';
 import 'package:sdm_mobile/widgets/custom_text_field.dart';
@@ -131,7 +131,7 @@ void _successDialog(BuildContext context) {
                 Navigator.pop(context); // Close the success dialog
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => const HomePage()),
+                  MaterialPageRoute(builder: (context) => const HomePage1()),
                   (Route<dynamic> route) => false,
                 );
               },
@@ -321,7 +321,7 @@ void _successDialog(BuildContext context) {
                 onBackButtonPressed: () {
                   WidgetsBinding.instance.addPostFrameCallback((_) => Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
+                    MaterialPageRoute(builder: (context) => const HomePage1()),
                     (Route<dynamic> route) => false,
                   ));
                 },

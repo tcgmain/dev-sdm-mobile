@@ -4,7 +4,7 @@ import 'package:sdm_mobile/blocs/mark_visit_bloc.dart';
 import 'package:sdm_mobile/models/mark_visit.dart' as markVisitModels;
 import 'package:sdm_mobile/repository/mark_visit_repository.dart';
 import 'package:sdm_mobile/utils/constants.dart';
-import 'package:sdm_mobile/view/home_view.dart';
+import 'package:sdm_mobile/view/home_view1.dart';
 import 'package:sdm_mobile/view/organization_home_view.dart';
 import 'package:sdm_mobile/widgets/appbar.dart';
 import 'package:sdm_mobile/widgets/frotest_glass_box.dart';
@@ -192,7 +192,7 @@ class _OrganizationListPageState extends State<OrganizationList> {
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                builder: (context) => OraganizationHomePage(
+                                                builder: (context) => OraganizationHomePage1(
                                                   routeName: '',
                                                   routeNumber: '',
                                                   organizationNummer: organization.orgnummer.toString(),
@@ -257,7 +257,7 @@ class _OrganizationListPageState extends State<OrganizationList> {
                 onBackButtonPressed: () {
                   WidgetsBinding.instance.addPostFrameCallback((_) => Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => const HomePage()),
+                        MaterialPageRoute(builder: (context) => const HomePage1()),
                         (Route<dynamic> route) => false,
                       ));
                 },
